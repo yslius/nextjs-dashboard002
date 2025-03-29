@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id               Int @id @default(autoincrement())
+  name             String @db.VarChar(255)
+  email            String @db.VarChar(255)
+  password         String @db.VarChar(255)
+}
+
+model customers {
+  id               Int @id @default(autoincrement())
+  uuid             String @db.Char(36)
+  name             String @db.VarChar(255)
+  email            String @db.VarChar(255)
+  image_url         String @db.VarChar(255)
+}
+
+model invoices {
+  id               Int @id @default(autoincrement())
+  customer_id      String @db.Char(36)
+  amount           Int
+  status           String @db.VarChar(255)
+  date             DateTime @db.Date
+}
+
+model revenue {
+  month           String @db.VarChar(4) @unique
+  revenue         Int
+}
